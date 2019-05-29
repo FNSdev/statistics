@@ -5,8 +5,8 @@ import random
 import math
 
 n = 200
-a = -3
-b = 9
+A = -5
+B = 7
 
 X = []
 Y = []
@@ -15,17 +15,17 @@ def generate(n):
     X.clear()
     Y.clear()
     for i in range(n):
-        x = random.uniform(a, b)
+        x = random.uniform(A, B)
         X.append(x)
-        Y.append(abs(x))
+        Y.append(x ** 2)
 
 def F(x):
     if x < 0:
         return 0
-    elif x < 3:
-        return x / 6
-    elif x < 9:
-        return x / 12 + 0.25
+    elif x < 25:
+        return math.sqrt(x) / 6
+    elif x < 49:
+        return (5 + math.sqrt(x)) / 12
     else:
         return 1
 
@@ -86,8 +86,8 @@ a = Y[0]
 b = Y[-1]
 
 omega2_critical = 0.744
-#omega2 = sum((F(Y[i]) - (i - 0.5) / n) ** 2 for i in range(n)) + 1 / (12 * n)
-omega2 = sum((F(Y[i]) - G(Y[i])) ** 2 for i in range(n)) + 1 / (12 * n)
+omega2 = sum((F(Y[i]) - (i - 0.5) / n) ** 2 for i in range(1, n)) + 1 / (12 * n)
+#omega2 = sum((F(Y[i]) - G(Y[i])) ** 2 for i in range(n)) + 1 / (12 * n)
 print('-' * 20)
 print(f'omega2 = {omega2}, critical omega2 = {omega2_critical}')
 print('accept' if omega2 < omega2_critical else 'decline')
